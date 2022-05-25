@@ -1,18 +1,25 @@
-import React, { useState } from "react"; 
-import EstiloLista from "./Lista.module.scss"; 
-import Item from './Item';
+import React from "react";
+import { InternalSymbolName } from "typescript";
 import { ITarefa } from "../../types/ITarefa";
+import Item from './Item';
+import EstiloLista from "./Lista.module.scss";
 
-function Lista({tarefas}:{tarefas:ITarefa[]}){ 
+interface props{
+    tarefas:ITarefa[],
+    selecionarTarefa(tarefaSelecionada:ITarefa):void
+}
+
+function Lista({tarefas, selecionarTarefa}: props){ 
     return( 
    <aside className={EstiloLista.listaTarefas}>
         <h2 >Estudo do dia</h2> 
         <ul> 
             {tarefas.map((item,index)=> ( 
             <Item 
-            key={index} 
-            tarefa={item.tarefa}
-            tempo={item.tempo}/>))}
+            key={item.id} 
+            item={item} 
+            selecionarTarefa={selecionarTarefa}
+           />))}
         </ul>
     </aside>
     );
